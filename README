@@ -1,0 +1,6 @@
+* colorfmt
+
+Code was initially taken from a Zig issue[1].
+
+
+[1]: https://github.com/ziglang/zig/issues/9502
