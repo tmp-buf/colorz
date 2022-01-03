@@ -15,7 +15,7 @@ const assert = std.debug.assert;
 /// - `<b>`: Bold mode
 /// - `<d>`: Dim mode
 /// - `<r>`, `</r>`: Reset
-pub fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
+pub fn colorFormat(comptime fmt: []const u8) []const u8 {
     comptime var new_fmt: [fmt.len * 4]u8 = undefined;
     comptime var new_fmt_i: usize = 0;
     const ED = "\x1b[";
@@ -70,17 +70,13 @@ pub fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const 
                 };
                 var orig = new_fmt_i;
 
-                if (is_enabled) {
-                    if (!is_reset) {
-                        orig = new_fmt_i;
-                        new_fmt_i += color_str.len;
-                        std.mem.copy(u8, new_fmt[orig..new_fmt_i], color_str);
-                    } else {
-                        const reset = "\x1b[0m";
-                        orig = new_fmt_i;
-                        new_fmt_i += reset.len;
-                        std.mem.copy(u8, new_fmt[orig..new_fmt_i], reset);
-                    }
+                if (!is_reset) {
+                    new_fmt_i += color_str.len;
+                    std.mem.copy(u8, new_fmt[orig..new_fmt_i], color_str);
+                } else {
+                    const reset = "\x1b[0m";
+                    new_fmt_i += reset.len;
+                    std.mem.copy(u8, new_fmt[orig..new_fmt_i], reset);
                 }
             },
 
@@ -110,7 +106,7 @@ test "strEql function" {
 test "colorFormat function" {
     const s1 = "<red>Red<r>";
     const s2 = "\x1b[31mRed\x1b[0m";
-    assert(strEql(colorFormat(s1, true), s2));
+    assert(strEql(colorFormat(s1), s2));
 
-    std.debug.print("{s}\n", .{colorFormat("<green><b>[OK]<r> Color test <b>passed!<r>", true)});
+    std.debug.print("{s}\n", .{colorFormat("<green><b>[OK]<r> Color test <b>passed!<r>")});
 }
