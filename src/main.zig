@@ -1,25 +1,23 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Valid colors:
-// <black>
-// <blue>
-// <cyan>
-// <green>
-// <magenta>
-// <red>
-// <white>
-// <yellow>
-// <b> - bold
-// <d> - dim
-// </r> - reset
-// <r> - reset
+/// Format `fmt` with the corresponding ANSI color codes.
+/// Valid colors:
+/// - `<black>`
+/// - `<blue>`
+/// - `<cyan>`
+/// - `<green>`
+/// - `<magenta>`
+/// - `<red>`
+/// - `<white>`
+/// - `<yellow>`
+/// - `<b>`: Bold mode
+/// - `<d>`: Dim mode
+/// - `<r>`, `</r>`: Reset
 fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
     comptime var new_fmt: [fmt.len * 4]u8 = undefined;
     comptime var new_fmt_i: usize = 0;
     const ED = "\x1b[";
-
-    // @setEvalBranchQuota(9999);
 
     comptime var i: usize = 0;
     comptime while (i < fmt.len) {
@@ -116,6 +114,7 @@ fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
     return new_fmt[0..new_fmt_i];
 }
 
+/// Test for equality between `s1` and `s2`.
 fn strEql(s1: []const u8, s2: []const u8) bool {
     return std.mem.eql(u8, s1, s2);
 }
