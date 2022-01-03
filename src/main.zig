@@ -62,7 +62,7 @@ pub fn colorFormat(comptime fmt: []const u8) []const u8 {
                     } else if (strEql(color_name, "r")) {
                         break :color_picker ED ++ "0m";
                     } else {
-                        @compileError("Invalid color name: " ++ color);
+                        @compileError("Invalid color name: " ++ color_name);
                     }
                 };
                 var orig = new_fmt_i;
