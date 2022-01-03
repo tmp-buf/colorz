@@ -1,5 +1,6 @@
 const std = @import("std");
 const testing = std.testing;
+const assert = std.debug.assert;
 
 /// Format `fmt` with the corresponding ANSI color codes.
 /// Valid colors:
@@ -109,5 +110,7 @@ test "strEql function" {
 test "colorFormat function" {
     const s1 = "<red>Red<r>";
     const s2 = "\x1b[31mRed\x1b[0m";
-    try testing.expect(strEql(colorFormat(s1, true), s2));
+    assert(strEql(colorFormat(s1, true), s2));
+
+    std.debug.print("{s}\n", .{colorFormat("<green><b>[OK]<r> Color test <b>passed!<r>", true)});
 }
