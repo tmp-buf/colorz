@@ -14,49 +14,29 @@ const testing = std.testing;
 /// - `<b>`: Bold mode
 /// - `<d>`: Dim mode
 /// - `<r>`, `</r>`: Reset
-fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
+pub fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
     comptime var new_fmt: [fmt.len * 4]u8 = undefined;
     comptime var new_fmt_i: usize = 0;
     const ED = "\x1b[";
+
+    // TODO: Stress test to see if the line below is necessary
+    @setEvalBranchQuota(9999);
 
     comptime var i: usize = 0;
     comptime while (i < fmt.len) {
         const c = fmt[i];
         switch (c) {
-            '\\' => {
-                i += 1;
-                if (fmt.len < i) {
-                    switch (fmt[i]) {
-                        '<', '>' => {
-                            i += 1;
-                        },
-                        else => {
-                            new_fmt[new_fmt_i] = '\\';
-                            new_fmt_i += 1;
-                            new_fmt[new_fmt_i] = fmt[i];
-                            new_fmt_i += 1;
-                        },
-                    }
-                }
-            },
             '>' => {
                 i += 1;
-            },
-            '{' => {
-                while (fmt.len > i and fmt[i] != '}') {
-                    new_fmt[new_fmt_i] = fmt[i];
-                    new_fmt_i += 1;
-                    i += 1;
-                }
             },
             '<' => {
                 i += 1;
                 var is_reset: bool = fmt[i] == '/';
                 if (is_reset) i += 1;
                 var start: usize = i;
-                while (i < fmt.len and fmt[i] != '>') {
-                    i += 1;
-                }
+
+                // Find closing bracket
+                while (i < fmt.len and fmt[i] != '>') : (i += 1) {}
 
                 const color_name = fmt[start..i];
                 const color_str = color_picker: {
@@ -84,7 +64,7 @@ fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
                         is_reset = true;
                         break :color_picker "";
                     } else {
-                        @compileError("Invalid color name passed: " ++ color_name);
+                        @compileError("Invalid color name: " ++ color_name);
                     }
                 };
                 var orig = new_fmt_i;
@@ -95,10 +75,10 @@ fn colorFormat(comptime fmt: []const u8, comptime is_enabled: bool) []const u8 {
                         new_fmt_i += color_str.len;
                         std.mem.copy(u8, new_fmt[orig..new_fmt_i], color_str);
                     } else {
-                        const reset_sequence = "\x1b[0m";
+                        const reset = "\x1b[0m";
                         orig = new_fmt_i;
-                        new_fmt_i += reset_sequence.len;
-                        std.mem.copy(u8, new_fmt[orig..new_fmt_i], reset_sequence);
+                        new_fmt_i += reset.len;
+                        std.mem.copy(u8, new_fmt[orig..new_fmt_i], reset);
                     }
                 }
             },
