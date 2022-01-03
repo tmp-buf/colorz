@@ -32,8 +32,6 @@ pub fn colorFormat(comptime fmt: []const u8) []const u8 {
             },
             '<' => {
                 i += 1;
-                var is_reset: bool = fmt[i] == '/';
-                if (is_reset) i += 1;
                 var start: usize = i;
 
                 // Find closing bracket
@@ -62,22 +60,14 @@ pub fn colorFormat(comptime fmt: []const u8) []const u8 {
                     } else if (strEql(color_name, "yellow")) {
                         break :color_picker ED ++ "33m";
                     } else if (strEql(color_name, "r")) {
-                        is_reset = true;
-                        break :color_picker "";
+                        break :color_picker ED ++ "0m";
                     } else {
-                        @compileError("Invalid color name: " ++ color_name);
+                        @compileError("Invalid color name: " ++ color);
                     }
                 };
                 var orig = new_fmt_i;
-
-                if (!is_reset) {
-                    new_fmt_i += color_str.len;
-                    std.mem.copy(u8, new_fmt[orig..new_fmt_i], color_str);
-                } else {
-                    const reset = "\x1b[0m";
-                    new_fmt_i += reset.len;
-                    std.mem.copy(u8, new_fmt[orig..new_fmt_i], reset);
-                }
+                new_fmt_i += color_str.len;
+                std.mem.copy(u8, new_fmt[orig..new_fmt_i], color_str);
             },
 
             else => {
