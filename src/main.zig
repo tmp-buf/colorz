@@ -1,8 +1,29 @@
 const std = @import("std");
 const assert = std.debug.assert;
 
-/// Format `fmt` with the corresponding ANSI color codes.
-/// Valid colors:
+/// Struct of ANSI color codes with corresponding field names.
+pub const Palette = struct {
+    pub const r = "\x1b[0m";
+    pub const b = "\x1b[1m";
+    pub const d = "\x1b[2m";
+
+    pub const black = "\x1b[30m";
+    pub const red = "\x1b[31m";
+    pub const green = "\x1b[32m";
+    pub const yellow = "\x1b[33m";
+    pub const blue = "\x1b[34m";
+    pub const magenta = "\x1b[35m";
+    pub const cyan = "\x1b[36m";
+    pub const white = "\x1b[37m";
+
+    // Aliases
+    pub const reset = r;
+    pub const bold = b;
+    pub const dim = d;
+};
+
+/// Format `fmt` with ANSI color codes.
+/// Valid color formats:
 /// - `<black>`
 /// - `<blue>`
 /// - `<cyan>`
@@ -55,36 +76,7 @@ pub fn colorFormat(comptime fmt: []const u8) []const u8 {
 
 /// Return corresponding ANSI color code for the comptime string `s`
 fn colorCodeOf(comptime s: []const u8) []const u8 {
-    const ED = "\x1b[";
-    const encoded = col: {
-        if (strEql(s, "black")) {
-            break :col ED ++ "30m";
-        } else if (strEql(s, "blue")) {
-            break :col ED ++ "34m";
-        } else if (strEql(s, "b")) {
-            break :col ED ++ "1m";
-        } else if (strEql(s, "d")) {
-            break :col ED ++ "2m";
-        } else if (strEql(s, "cyan")) {
-            break :col ED ++ "36m";
-        } else if (strEql(s, "green")) {
-            break :col ED ++ "32m";
-        } else if (strEql(s, "magenta")) {
-            break :col ED ++ "35m";
-        } else if (strEql(s, "red")) {
-            break :col ED ++ "31m";
-        } else if (strEql(s, "white")) {
-            break :col ED ++ "37m";
-        } else if (strEql(s, "yellow")) {
-            break :col ED ++ "33m";
-        } else if (strEql(s, "r")) {
-            break :col ED ++ "0m";
-        } else {
-            @compileError("Invalid color name: " ++ s);
-        }
-    };
-
-    return encoded;
+    return @field(Palette, s);
 }
 
 /// Test for equality between two strings `s1` and `s2`.
