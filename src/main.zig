@@ -78,8 +78,3 @@ pub fn colorFormat(comptime fmt: []const u8) []const u8 {
 fn colorCodeOf(comptime s: []const u8) []const u8 {
     return @field(Palette, s);
 }
-
-/// Test for equality between two strings `s1` and `s2`.
-fn strEql(s1: []const u8, s2: []const u8) bool {
-    return std.mem.eql(u8, s1, s2);
-}
