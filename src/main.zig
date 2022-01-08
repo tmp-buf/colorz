@@ -19,6 +19,7 @@ pub const Palette = struct {
     // Aliases
     pub const reset = r;
     pub const bold = b;
+    pub const bright = b;
     pub const dim = d;
 };
 
