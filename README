@@ -8,5 +8,6 @@ built/tested with Zig 0.9.0.
 [1]: https://github.com/ziglang/zig/issues/9502
 
 * TODO
-- [ ] Add 256 color palette
+- [X] Add 256 color palette
 - [ ] Auto-choose palette based on terminal support
+- [ ] Example code to print the 16 color palette
