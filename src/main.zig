@@ -6,6 +6,8 @@ pub const Palette = struct {
     pub const r = "\x1b[0m";
     pub const b = "\x1b[1m";
     pub const d = "\x1b[2m";
+    pub const n = "\x1b[3m";
+    pub const u = "\x1b[4m";
 
     pub const black = "\x1b[30m";
     pub const red = "\x1b[31m";
@@ -18,6 +20,8 @@ pub const Palette = struct {
 
     // Aliases
     pub const reset = r;
+    pub const underline = u;
+    pub const negate = n;
     pub const bold = b;
     pub const bright = b;
     pub const dim = d;
