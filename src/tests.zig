@@ -18,5 +18,4 @@ test "Formatting with Palette struct" {
     const s2 = p.green ++ p.bold ++ "[OK]" ++ p.reset;
     try expect(std.mem.eql(u8, s1, s2) == true);
     print("{s}\n", .{s1});
-
 }
