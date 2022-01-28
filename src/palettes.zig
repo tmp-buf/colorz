@@ -9,12 +9,12 @@ pub const Mode = struct {
     pub const u = "\x1b[4m";
 
     // Aliases
-    pub const Reset = r;
-    pub const Underline = u;
-    pub const Negate = n;
-    pub const Bold = b;
-    pub const Bright = b;
-    pub const Dim = d;
+    pub const reset = r;
+    pub const underline = u;
+    pub const negate = n;
+    pub const bold = b;
+    pub const bright = b;
+    pub const dim = d;
 };
 
 /// Palette struct with 16 colors.
@@ -46,8 +46,8 @@ pub const Palette16 = struct {
     };
 
     // Aliases
-    pub const Fg = Foreground;
-    pub const Bg = Background;
+    pub const fg = Foreground;
+    pub const bg = Background;
 };
 
 /// Palette struct with 256 colors.
@@ -79,6 +79,6 @@ pub const Palette256 = struct {
     };
 
     // Aliases
-    pub const Fg = Foreground;
-    pub const Bg = Background;
+    pub const fg = Foreground;
+    pub const bg = Background;
 };
