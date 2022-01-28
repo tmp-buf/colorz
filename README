@@ -3,7 +3,7 @@
 Provide 16 color support for the terminal using ANSI escape codes.
 
 This library's code was initially taken from a Github issue[1] and is
-built/tested with Zig 0.9.0.
+built/tested with Zig master branch.
 
 [1]: https://github.com/ziglang/zig/issues/9502
 
