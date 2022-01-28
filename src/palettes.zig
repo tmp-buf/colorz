@@ -24,25 +24,25 @@ pub const Mode = struct {
 /// Example, red background: `\x1b[41m`
 pub const Palette16 = struct {
     pub const Foreground = struct {
-        pub const black = "\x1b[30m";
-        pub const red = "\x1b[31m";
-        pub const green = "\x1b[32m";
-        pub const yellow = "\x1b[33m";
-        pub const blue = "\x1b[34m";
-        pub const magenta = "\x1b[35m";
-        pub const cyan = "\x1b[36m";
-        pub const white = "\x1b[37m";
+        pub const Black = "\x1b[30m";
+        pub const Red = "\x1b[31m";
+        pub const Green = "\x1b[32m";
+        pub const Yellow = "\x1b[33m";
+        pub const Blue = "\x1b[34m";
+        pub const Magenta = "\x1b[35m";
+        pub const Cyan = "\x1b[36m";
+        pub const White = "\x1b[37m";
     };
 
     pub const Background = struct {
-        pub const black = "\x1b[40m";
-        pub const red = "\x1b[41m";
-        pub const green = "\x1b[42m";
-        pub const yellow = "\x1b[43m";
-        pub const blue = "\x1b[44m";
-        pub const magenta = "\x1b[45m";
-        pub const cyan = "\x1b[46m";
-        pub const white = "\x1b[47m";
+        pub const Black = "\x1b[40m";
+        pub const Red = "\x1b[41m";
+        pub const Green = "\x1b[42m";
+        pub const Yellow = "\x1b[43m";
+        pub const Blue = "\x1b[44m";
+        pub const Magenta = "\x1b[45m";
+        pub const Cyan = "\x1b[46m";
+        pub const White = "\x1b[47m";
     };
 
     // Aliases
