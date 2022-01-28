@@ -8,6 +8,6 @@ built/tested with Zig master branch.
 [1]: https://github.com/ziglang/zig/issues/9502
 
 * TODO
-- [X] Add 256 color palette
 - [ ] Auto-choose palette based on terminal support
-- [ ] Example code to print the 16 color palette
+- [ ] CLI program to print input colors.
+      Example: `./colorz fg.133 bg.red bold`
