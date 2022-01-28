@@ -1,31 +1,6 @@
 const std = @import("std");
+const palettes = @import("palettes.zig");
 const assert = std.debug.assert;
-
-/// Struct of ANSI color codes with corresponding field names.
-pub const Palette = struct {
-    pub const r = "\x1b[0m";
-    pub const b = "\x1b[1m";
-    pub const d = "\x1b[2m";
-    pub const n = "\x1b[3m";
-    pub const u = "\x1b[4m";
-
-    pub const black = "\x1b[30m";
-    pub const red = "\x1b[31m";
-    pub const green = "\x1b[32m";
-    pub const yellow = "\x1b[33m";
-    pub const blue = "\x1b[34m";
-    pub const magenta = "\x1b[35m";
-    pub const cyan = "\x1b[36m";
-    pub const white = "\x1b[37m";
-
-    // Aliases
-    pub const reset = r;
-    pub const underline = u;
-    pub const negate = n;
-    pub const bold = b;
-    pub const bright = b;
-    pub const dim = d;
-};
 
 /// Format `fmt` with ANSI color codes.
 /// Valid color formats:
